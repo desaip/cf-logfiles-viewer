@@ -1,0 +1,45 @@
+@(email: String, resapp: List[org.cloudfoundry.client.lib.CloudApplication])
+
+@import helper._
+@import org.cloudfoundry.client.lib.CloudApplication
+@import org.cloudfoundry.client.lib.CloudFoundryClient
+@main("") {
+ <p id="logout" class="buttons" align="right">
+      <a href="@routes.Application.logout">Log Out</a>
+ </p>
+<center>
+
+<h2 id="welcome">Welcome to cloud foundry</h2>
+<h4 id="email-id">Email is : @email</h4> 
+<br>
+<br>
+
+@{if(resapp.isEmpty){
+<h3>  <a href="www.cloudfoundry.com"> No Applications Deployed Yet.
+Create and deploy your applications on in seconds !!</a>  
+</h3>
+}
+}
+<table border="1" >
+<tr>
+<th> Application Name</th>
+<th> Instances </th>
+<th> Running Instances </th>
+<th> Memory </th>
+<th> View Log </th>
+</tr>
+@resapp.map{app =>
+<tr>
+<td> @app.getName  </td>
+<td> @app.getInstances</td>
+<td id="runInst"> @app.getRunningInstances</td>
+<td> @app.getMemory</td>
+<td id="logLink"> <a href="@routes.Application.showLogs(app.getName)">View Log </a></td> 
+</tr>
+}
+</table>
+</center>   
+ } 
+
+    
+    
