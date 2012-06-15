@@ -19,8 +19,7 @@ object Application extends Controller{
     "password" -> nonEmptyText
   ) 
 )
-  
-val cloudControllerUrl = "https://api.cloudfoundry.com"
+	val cloudControllerUrl = "https://api.cloudfoundry.com"
   
 	def index = Action {  	
     Ok(html.login(loginForm))
@@ -32,8 +31,7 @@ val cloudControllerUrl = "https://api.cloudfoundry.com"
 	{		 
   	    case(email,password)=> 
   		val client = new CloudFoundryClient(email, password, cloudControllerUrl)
-  		val token = client.login() 
-  		
+  		val token = client.login()  		
   		/*catch {
   		  case cfe: CloudFoundryException => Ok("Invalid Login")
   		  case e: Exception => Ok("Exception found")		  
@@ -41,19 +39,15 @@ val cloudControllerUrl = "https://api.cloudfoundry.com"
   		*/ 
   		val applist = client.getApplications()
   	    val resapp=applist.toList
-  	    Ok(html.apps(email,resapp)).withSession("token" -> token)	
-  		
+  	    Ok(html.apps(email,resapp)).withSession("token" -> token)	 		
   	 }
-    ) 
-  	   
+    )   	   
   }
-  	
-  	var file1=""
-  	var file2 =""
-  	  
+  	      
  	def showLogs(appName:String) = Action { implicit request =>
-  	     session.get("token").map{token =>
-  	     
+ 	    var file1=""
+ 	    var file2=""
+  	    session.get("token").map{ token =>
   	     val client = new CloudFoundryClient(token,cloudControllerUrl)
   	     file1 = client.getFile(appName,0,"/logs/stderr.log")
   	     file2 = client.getFile(appName,0,"/logs/stdout.log")
@@ -68,4 +62,5 @@ val cloudControllerUrl = "https://api.cloudfoundry.com"
   	    }
   	     Ok(html.login(loginForm)).withNewSession
   	  }
+ 	
 } 

@@ -1,0 +1,13 @@
+eclipsify
+run
+~run
+run
+play clean
+run
+play clean
+run
+test
+test test-only
+run
+test
+play clean

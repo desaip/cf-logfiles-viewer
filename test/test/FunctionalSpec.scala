@@ -3,21 +3,15 @@ import org.specs2.mutable._
 import play.api.test._
 import play.api.test.Helpers._
 import java.util.Properties
-import java.io.BufferedReader
 import java.io.FileReader
 
 class FunctionalSpec extends Specification{
  
-  var email = ""
-  var pwd = ""
+  val credential = new Properties() 
+  credential.load(new FileReader("cf.properties"))
+  val email = credential.getProperty("email")
+  val pwd = credential.getProperty("password") 
   
-  def getProperties {
-  val p:Properties = new Properties() 
-  p.load(new FileReader("cf.properties"))
-  email += p.getProperty("email")
-  pwd += p.getProperty("password") 
-  }
- 
      "run in a browser" in { 
       running(TestServer(3333),HTMLUNIT) { browser =>
          browser.goTo("http://localhost:3333/")
@@ -25,9 +19,19 @@ class FunctionalSpec extends Specification{
          browser.$("#email").text(email)
          browser.$("#password").text(pwd)
          browser.$("#submit").click()
+         
          browser.url must equalTo("http://localhost:3333/apps")
-        //browser.$("#welcome").first.getText must equalTo("Welcome to cloud foundry")
-        //browser.$("#email-id").first.getText must equalTo("Email is : desaip@vmware.com")
+         browser.$("#emailid").first.getText must equalTo(email)
+         browser.$("a").get(1).click()
+         
+         browser.$("#stderr").first.getText must equalTo("Standard Error Logs")
+         browser.$("#stdout").first.getText must equalTo("Standard Output Logs")
+        
          }
      } 
  }
+
+/* add a configuration to run this test. Create cf.properties that should contain your CF credentials as follows:
+email=<your email>
+password=<your password>
+*/
