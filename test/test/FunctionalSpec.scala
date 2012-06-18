@@ -21,22 +21,26 @@ class FunctionalSpec extends Specification{
          browser.$("#submit").click()
         
          //apps
-         browser.url must equalTo("http://localhost:3333/apps")
+         //browser.url must equalTo("http://localhost:3333/apps")
+         browser.$("#tableapps").size must equalTo(1)
          
          //logs
          browser.$("a").get(1).click()
-         browser.url must contain("http://localhost:3333/logs?appName=")
-         browser.$("#stderr").first.getText must equalTo("Standard Error Logs")
-         browser.$("#stdout").first.getText must equalTo("Standard Output Logs")
-                 
+         //browser.url must contain("http://localhost:3333/logs?appName=")
+         browser.$("#stderr").size must equalTo(1)
+         browser.$("#stdout").size must equalTo(1)
+         
          //back to apps
          browser.$("a").get(1).click()
-         browser.url must equalTo("http://localhost:3333/apps")
+         //browser.url must equalTo("http://localhost:3333/apps")
+         browser.$("#tableapps").size must equalTo(1)
          
          //logout
          browser.$("a").get(0).click()
-         browser.url must equalTo("http://localhost:3333/login")
-         }
+         //browser.url must equalTo("http://localhost:3333/login")
+         browser.$("#email").size must equalTo(1)
+         browser.$("#password").size must equalTo(1)
+      }
      } 
  }
 

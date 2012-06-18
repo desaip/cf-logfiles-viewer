@@ -32,7 +32,7 @@ object Application extends Controller{
   	    case(email,password)=> 
   		val client = new CloudFoundryClient(email, password, cloudControllerUrl)
   		val token = client.login() 
-  	    Ok(html.redirect()).withSession("token" -> token)	 		
+  	    Redirect(routes.Application.showApps()).withSession("token"-> token)		
   	 }
     ) 	   
   }
@@ -40,12 +40,10 @@ object Application extends Controller{
   	def showApps = Action { implicit request =>
   	  val token = session.get("token").get
   	  val client = new CloudFoundryClient(token,cloudControllerUrl)
-  	  val applist = client.getApplications()
-  	  val resapp=applist.toList
-  	  Ok(html.apps(resapp))
+  	  val applist = client.getApplications().toList
+  	  Ok(html.apps(applist))
   	}
-  	
-  	
+  		
  	def showLogs(appName:String) = Action { implicit request =>
   	    session.get("token").map{ token =>
   	     val client = new CloudFoundryClient(token,cloudControllerUrl)

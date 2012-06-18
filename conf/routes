@@ -4,7 +4,7 @@
 # Home page
 GET     /                           controllers.Application.index
 
-POST 	/redirect					controllers.Application.checkLogin
+POST 	/apps					controllers.Application.checkLogin
 
 GET    /apps                       controllers.Application.showApps
 
