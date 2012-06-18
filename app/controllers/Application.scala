@@ -21,38 +21,40 @@ object Application extends Controller{
 )
 	val cloudControllerUrl = "https://api.cloudfoundry.com"
   
-	def index = Action {  	
+	def index = Action { 
+	  
     Ok(html.login(loginForm))
     }
   	
-  	def checkLogin = Action { 
-  	     
+  	def checkLogin = Action {  	     
   	  implicit request => loginForm.bindFromRequest.fold( formWithErrors => BadRequest(html.login(formWithErrors)),
 	{		 
   	    case(email,password)=> 
   		val client = new CloudFoundryClient(email, password, cloudControllerUrl)
-  		val token = client.login()  		
-  		/*catch {
-  		  case cfe: CloudFoundryException => Ok("Invalid Login")
-  		  case e: Exception => Ok("Exception found")		  
-  		}
-  		*/ 
-  		val applist = client.getApplications()
-  	    val resapp=applist.toList
-  	    Ok(html.apps(email,resapp)).withSession("token" -> token)	 		
+  		val token = client.login() 
+  	    Ok(html.redirect()).withSession("token" -> token)	 		
   	 }
-    )   	   
+    ) 	   
   }
-  	      
+  	
+  	def showApps = Action { implicit request =>
+  	  val token = session.get("token").get
+  	  val client = new CloudFoundryClient(token,cloudControllerUrl)
+  	  val applist = client.getApplications()
+  	  val resapp=applist.toList
+  	  Ok(html.apps(resapp))
+  	}
+  	
+  	
  	def showLogs(appName:String) = Action { implicit request =>
- 	    var file1=""
- 	    var file2=""
   	    session.get("token").map{ token =>
   	     val client = new CloudFoundryClient(token,cloudControllerUrl)
-  	     file1 = client.getFile(appName,0,"/logs/stderr.log")
-  	     file2 = client.getFile(appName,0,"/logs/stdout.log")
-  	     }
-  	   Ok(html.logs(file1,file2,appName))	   
+  	     val file1 = client.getFile(appName,0,"/logs/stderr.log")
+  	     val file2 = client.getFile(appName,0,"/logs/stdout.log")
+  	     Ok(html.logs(file1,file2,appName))
+  	    }.getOrElse{
+  	      Ok("No Running Instances")	
+  	    } 	      
   	}
 
  	def logout = Action { implicit request =>

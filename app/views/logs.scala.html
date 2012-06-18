@@ -1,13 +1,14 @@
 @(file1:String, file2:String, appName:String)
 @main(""){
 <body onload="timer()">
-
+<br>
 <div align="right"><a href="@routes.Application.logout">Log Out</a></div>
+<div align="left"> <a href="@routes.Application.showApps">Back to Applications</a></div>
 <h4 align="center"> Logs For <span id="appname">@appName</span>: </h4>
 
 <div style="width:100%; height:100%;">
 
-<div style="width:100%; height:50%;">
+<div style="width:100%; height:40%;">
 
 <span id="stderr">Standard Error Logs</span>
 <br>
@@ -19,7 +20,7 @@
 
 <hr>
 
-<div style="width:100%; height:50%;">
+<div style="width:100%; height:60%;">
 <span id="stdout">Standard Output Logs</span>
 <br>
 <pre>
