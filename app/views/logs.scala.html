@@ -8,23 +8,25 @@
 
 <div style="width:100%; height:100%;">
 
-<div style="width:100%; height:40%;">
-
+<div style="width:100%; height:50%;">
 <span id="stderr">Standard Error Logs</span>
+<input type="checkbox" name="scrollLog1" value="scrollLog1" onclick="if(this.checked){end1()}">Go to the end of log</br>
 <br>
 <pre>
+<textarea readonly="readonly" rows="20" cols="200" id="log1" name="log1">
 @file1
-</pre> 
-<br>
+</textarea>
+</pre>
 </div>
 
-<hr>
-
-<div style="width:100%; height:60%;">
+<div style="width:100%; height:50%;">
 <span id="stdout">Standard Output Logs</span>
+<input type="checkbox" name="scrollLog2" value="scrollLog2" onclick="if(this.checked){end2()}">Go to the end of log</br>
 <br>
 <pre>
+<textarea readonly="readonly" rows="20" cols="200" id="log2" name="log2">
 @file2
+</textarea>
 </pre>
 </div>
 
@@ -39,6 +41,17 @@ setInterval(function(){updateLogs()},10000);
 function updateLogs()
 {
 	window.location = "@routes.Application.showLogs(appName)" 
+}
+
+function end2()
+{
+	var log = document.getElementById("log2");
+	log.scrollTop = log.scrollHeight;
+}
+function end1()
+{
+	var log = document.getElementById("log1");
+	log.scrollHeight = log.scrollTop;
 }
 </script>
 </body>
