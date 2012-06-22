@@ -1,4 +1,11 @@
+/* add a configuration file to run this test. 
+Create cf.properties that should contain your CF credentials as follows:
+email=<your email>
+password=<your password>
+*/
+
 package test
+
 import org.specs2.mutable._
 import play.api.test._
 import play.api.test.Helpers._
@@ -18,7 +25,7 @@ class FunctionalSpec extends Specification{
          //login
          browser.$("#email").text(email)
          browser.$("#password").text(pwd)
-         browser.$("#submit").click()
+         browser.click("#submit")
         
          //apps
          //browser.url must equalTo("http://localhost:3333/apps")
@@ -27,8 +34,10 @@ class FunctionalSpec extends Specification{
          //logs
          browser.findFirst("#tableapps").findFirst("a").click()
          //browser.url must contain("http://localhost:3333/logs?appName=")
-         browser.$("#stderr").size must equalTo(1)
-         browser.$("#stdout").size must equalTo(1)
+         browser.click("#scrollLog1")
+         browser.$("#log1").size must equalTo(1)
+         browser.click("#scrollLog2")
+         browser.$("#log2").size must equalTo(1)
          
          //back to apps
          browser.click("#apps")
@@ -43,8 +52,3 @@ class FunctionalSpec extends Specification{
       }
      } 
  }
-
-/* add a configuration to run this test. Create cf.properties that should contain your CF credentials as follows:
-email=<your email>
-password=<your password>
-*/
