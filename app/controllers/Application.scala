@@ -23,8 +23,8 @@ object Application extends Controller{
   
 	def index = Action { 	  
     Ok(html.login(loginForm))
-    }
-  	
+  }
+    
   	def checkLogin = Action {  	     
   	  implicit request => loginForm.bindFromRequest.fold( formWithErrors => BadRequest(html.login(formWithErrors)),
 	{		 
@@ -43,15 +43,8 @@ object Application extends Controller{
   	  Ok(html.apps(applist))
   	}
   		
- 	def showLogs(appName:String) = Action { implicit request =>
-  	    session.get("token").map{ token =>
-  	    val client = new org.cloudfoundry.client.lib.CloudFoundryClient(token,cloudControllerUrl)
-  	    val file1 = client.getFile(appName,0,"/logs/stderr.log")
-  	    val file2 = client.getFile(appName,0,"/logs/stdout.log")
-  	    Ok(html.logs(token,appName))
-  	    }.getOrElse{
-  	      Ok("No Running Instances")	
-  	    } 	      
+ 	def showLogs(appName:String) = Action { 
+  	    Ok(html.logs(appName)) 	      
   	}
 
  	def getLog(appName:String, logType:String) = Action { implicit request =>
