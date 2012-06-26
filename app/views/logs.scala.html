@@ -13,15 +13,15 @@ function callLogs(){
 }
 
 function getLogs(){	
-getLog('Stderr');
-getLog('Stdout');
+getLog('stderr');
+getLog('stdout');
 }
 
 function getLog(logType)
 {
 	$.get("/getLog?appName=@appName&logType="+logType,
 		function(fetchLog){
-			$("#log"+logType).html(fetchLog);
+			$("#log-"+logType).html(fetchLog);
 			},
 		"html"
 		);
@@ -33,7 +33,7 @@ function updateLogs() {
 
 function end(id)
 {
-	var log = document.getElementById("log"+id);
+	var log = document.getElementById("log-"+id);
 	log.scrollTop = log.scrollHeight;
 }
 
@@ -48,21 +48,22 @@ function end(id)
 <div style="width:100%; height:100%;">
 
 <div style="width:100%; height:40%;">
-<span id="stderr">Standard Error Logs</span> <br>
-<input type="checkbox" name="scrollLog1" value="scrollLog1" onclick="if(this.checked){end('Stderr')}">Go to the end of log</br>
+<span id="stderr" style="height: 50%; width: 95%;">Standard Error Logs</span> <br>
+<input type="checkbox" name="scrollLog1" value="scrollLog1" onclick="if(this.checked){end('stderr')}">Go to the end of log
+</br>
 <pre>
-<textarea readonly="readonly" rows="15" cols="200" id="logStderr" name="logStderr">
+<textarea readonly="readonly" rows="15" cols="200" id="log-stderr" name="log-stderr" style="height: 50%; width: 95%;">
 
 </textarea>
 </pre>
 </div>
 <br>
 <div style="width:100%; height:50%;">
-<span id="stdout">Standard Output Logs</span> <br>
-<input type="checkbox" name="scrollLog2" value="scrollLog2" onclick="if(this.checked){end('Stdout')}">Go to the end of log</br>
-
+<span id="stdout" style="height: 50%; width: 95%;">Standard Output Logs</span> <br>
+<input type="checkbox" name="scrollLog2" value="scrollLog2" onclick="if(this.checked){end('stdout')}">Go to the end of log
+</br>
 <pre>
-<textarea readonly="readonly" rows="15" cols="200" id="logStdout" name="logStdout">
+<textarea readonly="readonly" rows="15" cols="200" id="log-stdout" name="log-stdout" style="height: 50%; width: 95%;">
 
 </textarea>
 </pre>

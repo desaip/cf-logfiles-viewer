@@ -1,4 +1,4 @@
-@(resapp: List[org.cloudfoundry.client.lib.CloudApplication])
+@(appsList: List[org.cloudfoundry.client.lib.CloudApplication])
 
 @import helper._
 @import org.cloudfoundry.client.lib.CloudApplication
@@ -13,7 +13,7 @@
 <br>
 <br>
 
-@if(resapp.isEmpty){
+@if(appsList.isEmpty){
 <h3>  <a href="www.cloudfoundry.com"> No Applications Deployed Yet.
 Create and deploy your applications on in seconds !!</a>  
 </h3>
@@ -26,7 +26,7 @@ Create and deploy your applications on in seconds !!</a>
 <th>Memory</th>
 <th>View Log</th>
 </tr>
-@resapp.map{app =>
+@appsList.map{app =>
 <tr>
 <td>@app.getName</td>
 <td>@app.getInstances</td>
