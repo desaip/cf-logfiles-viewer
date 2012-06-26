@@ -35,9 +35,9 @@ class FunctionalSpec extends Specification{
          browser.findFirst("#tableapps").findFirst("a").click()
          //browser.url must contain("http://localhost:3333/logs?appName=")
          browser.click("#scrollLog1")
-         browser.$("#log1").size must equalTo(1)
+         browser.$("#logStderr").size must equalTo(1)
          browser.click("#scrollLog2")
-         browser.$("#log2").size must equalTo(1)
+         browser.$("#logStdout").size must equalTo(1)
          
          //back to apps
          browser.click("#apps")

@@ -21,8 +21,7 @@ object Application extends Controller{
 )
 	val cloudControllerUrl = "https://api.cloudfoundry.com"
   
-	def index = Action { 
-	  
+	def index = Action { 	  
     Ok(html.login(loginForm))
     }
   	
@@ -46,15 +45,32 @@ object Application extends Controller{
   		
  	def showLogs(appName:String) = Action { implicit request =>
   	    session.get("token").map{ token =>
-  	     val client = new CloudFoundryClient(token,cloudControllerUrl)
-  	     val file1 = client.getFile(appName,0,"/logs/stderr.log")
-  	     val file2 = client.getFile(appName,0,"/logs/stdout.log")
-  	     Ok(html.logs(file1,file2,appName))
+  	    val client = new org.cloudfoundry.client.lib.CloudFoundryClient(token,cloudControllerUrl)
+  	    val file1 = client.getFile(appName,0,"/logs/stderr.log")
+  	    val file2 = client.getFile(appName,0,"/logs/stdout.log")
+  	    Ok(html.logs(token,appName))
   	    }.getOrElse{
   	      Ok("No Running Instances")	
   	    } 	      
   	}
 
+ 	def getLog(appName:String, logType:String) = Action { implicit request =>
+  	    session.get("token").map{ token =>
+  	    val client = new org.cloudfoundry.client.lib.CloudFoundryClient(token,cloudControllerUrl)
+  	    if(logType =="Stderr"){
+  	    val file1 = client.getFile(appName,0,"/logs/stderr.log") 
+  	    Ok(file1)
+  	    }
+  	    else {
+  	    val file2 = client.getFile(appName,0,"/logs/stdout.log") 
+  	    Ok(file2)
+  	    }
+  	    }.getOrElse{
+  	      Ok("No Running Instances")	
+  	    } 	      	  
+ 	}
+ 	
+ 	
  	def logout = Action { implicit request =>
   	     session.get("token").map { token =>
   	     val client = new CloudFoundryClient(token,cloudControllerUrl)
