@@ -1,24 +1,32 @@
-@(loginForm: Form[(String,String)])
+@(loginForm: Form[(String,String)], message:String)
 
 @import helper._
 
 @main("login") {	
 	<center>		
     @form(action = routes.Application.checkLogin) {
-
+		<br>
+        <br>
+		@message
+		
         @inputText(
             field = loginForm("email"),
-            args = '_label -> "Email Id"
+            args = '_label -> "Email Id *"
         )
 
         @inputPassword(
             field = loginForm("password"),
-            args = '_label -> "Password" 
+            args = '_label -> "Password *" 
         )
 
         <p class="buttons">
             <input type="submit" id="submit">
+        </p>
+        
+       
         <p>
+        <a href="http://my.cloudfoundry.com/signup">New Users Sign Up to Cloud Foundry Now</a>
+        </p>
 	</center>
     }
 }
