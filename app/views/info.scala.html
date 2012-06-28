@@ -1,0 +1,50 @@
+@(infoList: org.cloudfoundry.client.lib.CloudInfo)
+
+@import helper._
+@import org.cloudfoundry.client.lib.CloudInfo
+
+@main("") {
+<img src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
+<center>
+
+ <p class="buttons" align="center">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/menu.css")" type="text/css" /><style>._css3m{display:none}</style>
+<body style="background-color:#EBEBEB">
+
+<ul id="css3menu1" class="topmenu">
+	<li class="topfirst"><a id="apps" href="@routes.Application.showApps" style="height:17px;line-height:17px;"> My Apps </a></li>
+	<li class="topmenu"><a id="info" href="@routes.Application.getInfo" style="height:17px;line-height:17px;"><span> My Usage </span></a>
+	<li class="toplast"><a id="logout" href="@routes.Application.logout" style="height:17px;line-height:17px;"> Logout </a></li>
+</ul>
+</body>     
+ </p>
+
+<br>
+<font color="#087cbb"><h3>My Usage</h3>
+
+@infoList.getDescription()
+<br>
+<br>
+<table border="1" id="tableinfo" width="400">
+
+<tr align="center">
+<th width="50%"> Memory </th>
+<td width="50%"> @infoList.getUsage().getTotalMemory() / @infoList.getLimits().getMaxTotalMemory MB </td>
+</tr>
+
+<tr align="center">
+<th width="50%"> Services </th>
+<td width="50%"> @infoList.getUsage().getServices() / @infoList.getLimits().getMaxServices </td>
+</tr>
+
+<tr align="center">
+<th width="50%"> Applications </th>
+<td width="50%"> @infoList.getUsage().getApps() / @infoList.getLimits().getMaxApps </td>
+</tr>
+
+</table>
+</font>
+</center>   
+ } 
+
+    

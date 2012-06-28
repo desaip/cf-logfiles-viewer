@@ -76,6 +76,16 @@ object Application extends Controller{
   	    } 	      	  
  	}
  	
+ 	def getInfo = Action { implicit request =>
+ 	  session.get("token").map { token =>
+  	     val client = new CloudFoundryClient(token,cloudControllerUrl)
+  	     val infoList = client.getCloudInfo() 
+  	     Ok(html.info(infoList))   
+  	  }.getOrElse{
+  	      Ok("No Info Found")	
+ 	}
+ }
+ 	
  	def logout = Action { implicit request =>
   	     session.get("token").map { token =>
   	     val client = new CloudFoundryClient(token,cloudControllerUrl)

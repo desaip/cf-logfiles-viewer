@@ -4,14 +4,25 @@
 @import org.cloudfoundry.client.lib.CloudApplication
 @import org.cloudfoundry.client.lib.CloudFoundryClient
 @main("") {
- <p class="buttons" align="right">
-      <a id="logout" href="@routes.Application.logout">Log Out</a>
- </p>
+<img src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
 <center>
 
-<h2>Welcome to cloud foundry</h2>
+ <p class="buttons" align="center">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/menu.css")" type="text/css" /><style>._css3m{display:none}</style>
+<body style="background-color:#EBEBEB">
+
+<ul id="css3menu1" class="topmenu">
+	<li class="topfirst"><a id="apps" href="@routes.Application.showApps" style="height:17px;line-height:17px;"> My Apps </a></li>
+	<li class="topmenu"><a id="info" href="@routes.Application.getInfo" style="height:17px;line-height:17px;"><span> My Usage </span></a>
+	<li class="toplast"><a id="logout" href="@routes.Application.logout" style="height:17px;line-height:17px;"> Logout </a></li>
+</ul>
+</body>     
+ </p>
+
 <br>
-<br>
+<font color="#087cbb"><h3>My Deployed Applications</h3>
+
+
 
 @if(appsList.isEmpty){
 <h3>  <a href="www.cloudfoundry.com"> No Applications Deployed Yet.
@@ -21,21 +32,24 @@ Create and deploy your applications on in seconds !!</a>
 <table border="1" id="tableapps">
 <tr>
 <th>Application Name</th>
+<th>Application URL</th>
 <th>Instances</th>
 <th>Running Instances</th>
 <th>Memory</th>
 <th>View Log</th>
 </tr>
 @appsList.map{app =>
-<tr>
-<td>@app.getName</td>
-<td>@app.getInstances</td>
-<td>@app.getRunningInstances</td>
-<td>@app.getMemory</td>
-<td><a href="@routes.Application.showLogs(app.getName)">View Log</a></td> 
+<tr align="center">
+<td width="20%">@app.getName</td>
+<td width="20%">@app.getUris</td>
+<td width="10%">@app.getInstances</td>
+<td width="10%">@app.getRunningInstances</td>
+<td width="10%">@app.getMemory</td>
+<td width="15%"><a href="@routes.Application.showLogs(app.getName)">View Log</a></td> 
 </tr>
 }
 </table>
+</font>
 </center>   
  } 
 

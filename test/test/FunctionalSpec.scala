@@ -44,6 +44,10 @@ class FunctionalSpec extends Specification{
          //browser.url must equalTo("http://localhost:3333/apps")
          browser.$("#tableapps").size must equalTo(1)
          
+         //usage
+         browser.click("#info")
+          browser.$("#tableinfo").size must equalTo(1)
+         
          //logout
          browser.click("#logout")
          //browser.url must equalTo("http://localhost:3333/login")
