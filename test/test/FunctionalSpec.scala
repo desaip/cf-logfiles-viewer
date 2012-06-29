@@ -32,7 +32,7 @@ class FunctionalSpec extends Specification{
          browser.$("#tableapps").size must equalTo(1)
          
          //logs
-         browser.findFirst("#tableapps").findFirst("a").click()
+         browser.findFirst("#tableapps").find("a",1).click()
          //browser.url must contain("http://localhost:3333/logs?appName=")
          browser.click("#scrollLog1")
          browser.$("#log-stderr").size must equalTo(1)
@@ -53,6 +53,23 @@ class FunctionalSpec extends Specification{
          //browser.url must equalTo("http://localhost:3333/login")
          browser.$("#email").size must equalTo(1)
          browser.$("#password").size must equalTo(1)
+         
+         //empty login validation
+         browser.$("#email").text("")
+         browser.$("#password").text("")
+         browser.click("#submit")
+         browser.$("#email").size must equalTo(1)
+         browser.$("#password").size must equalTo(1)
+         browser.$("#tableapps").size must equalTo(0)
+         
+         //invalid login
+         browser.$("#email").text("invalid@xyz.xyz")
+         browser.$("#password").text("invalid")
+         browser.click("#submit")
+         browser.$("#email").size must equalTo(1)
+         browser.$("#password").size must equalTo(1)
+         browser.$("#tableapps").size must equalTo(0)
+         
       }
      } 
  }

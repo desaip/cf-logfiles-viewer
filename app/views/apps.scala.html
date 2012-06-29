@@ -1,15 +1,14 @@
-@(appsList: List[org.cloudfoundry.client.lib.CloudApplication])
+@(appsList: List[org.cloudfoundry.client.lib.CloudApplication], cloudUrl:String , email:String)
 
 @import helper._
 @import org.cloudfoundry.client.lib.CloudApplication
 @import org.cloudfoundry.client.lib.CloudFoundryClient
-@main("") {
-<img src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
-<center>
+@main("My Apps") {
 
+<center>
+<img src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
  <p class="buttons" align="center">
-	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/menu.css")" type="text/css" /><style>._css3m{display:none}</style>
-<body style="background-color:#EBEBEB">
+	<body style="background-color:#EBEBEB">
 
 <ul id="css3menu1" class="topmenu">
 	<li class="topfirst"><a id="apps" href="@routes.Application.showApps" style="height:17px;line-height:17px;"> My Apps </a></li>
@@ -18,19 +17,18 @@
 </ul>
 </body>     
  </p>
-
+ <font color="#087cbb"><h3>My Deployed Applications For</h3>
+ <h4> 
+ User: @email <br>
+Cloud Controller : @cloudUrl <br>
+ </h4>
+<ul id="css3menu1" class="topmenu">
+<li class="toplast"><a id="refresh" href="@routes.Application.showApps" style="height:8px;line-height:8px;"> Refresh Apps </a></li>
+</ul>
 <br>
-<font color="#087cbb"><h3>My Deployed Applications</h3>
-
-
-
-@if(appsList.isEmpty){
-<h3>  <a href="www.cloudfoundry.com"> No Applications Deployed Yet.
-Create and deploy your applications on in seconds !!</a>  
-</h3>
-}
+<br>
 <table border="1" id="tableapps">
-<tr>
+<tr align="right">
 <th>Application Name</th>
 <th>Application URL</th>
 <th>Instances</th>
@@ -39,18 +37,29 @@ Create and deploy your applications on in seconds !!</a>
 <th>View Log</th>
 </tr>
 @appsList.map{app =>
-<tr align="center">
+<tr align="right">
 <td width="20%">@app.getName</td>
-<td width="20%">@app.getUris</td>
-<td width="10%">@app.getInstances</td>
-<td width="10%">@app.getRunningInstances</td>
-<td width="10%">@app.getMemory</td>
-<td width="15%"><a href="@routes.Application.showLogs(app.getName)">View Log</a></td> 
+<td width="30%">
+@if(app.getUris.toString.length != 2){
+<a target="_blank" href="http://www.@app.getUris.toString.substring(1,app.getUris.toString.length()-1)">
+@app.getUris.toString.substring(1,app.getUris.toString.length()-1)</a> 
+}
+</td>
+<td width="12%">@app.getInstances</td>
+<td width="12%">@app.getRunningInstances</td>
+<td width="12%">@app.getMemory</td>
+<td width="14%">
+<ul id="css3menu1" class="topmenu">
+<li class="toplast"><a id="log-link" href="@routes.Application.showLogs(app.getName)" style="height:1px;line-height:1px;"> View Log</a></li>
+</ul>
+</td> 
+
 </tr>
 }
 </table>
+</center> 
 </font>
-</center>   
+  
  } 
 
     

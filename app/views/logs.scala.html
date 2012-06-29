@@ -1,9 +1,9 @@
 @(appName:String)
 
-@main(""){
+@main("My Logs"){
 <center>
  <p class="buttons" align="center">
-	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/menu.css")" type="text/css" /><style>._css3m{display:none}</style>
+	
 <body style="background-color:#EBEBEB">
 
 <ul id="css3menu1" class="topmenu">
@@ -41,9 +41,8 @@ function getLog(logType)
 }
 	
 function updateLogs() {
-	$("#log-stderr").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100);
-	setInterval(function(){getLogs()},10000);	
 	
+	setInterval(function(){getLogs()},10000);	
 }
 
 function end(id)
@@ -52,23 +51,13 @@ function end(id)
 	log.scrollTop = log.scrollHeight;
 }
 
-$.fn.animateHighlight = function(highlightColor, duration) {
-    var highlightBg = highlightColor || "#FFFF9C";
-    var animateMs = duration || 1500;
-    var originalBg = "#FFFFFF";
-    this.stop().css(originalBg, highlightBg).animate({backgroundColor: originalBg}, animateMs);
-};
-
 </script>
 
 <body>
 <font color="#087cbb"> <h3 align="center"> Logs For <span id="appname">@appName</span>: </h3> </font>
-
-
 <div style="width:100%; height:100%;">
-
 <div style="width:100%; height:40%;">
-<span id="stderr" style="height: 50%; width: 95%;">Standard Error Logs</span> <br>
+<span id="stderr" style="height: 50%; width: 95%;">Standard Error Log</span> <br>
 <input type="checkbox" name="scrollLog1" value="scrollLog1" onclick="if(this.checked){end('stderr')}">Go to the end of log
 </br>
 <pre>
@@ -79,17 +68,15 @@ $.fn.animateHighlight = function(highlightColor, duration) {
 </div>
 <br>
 <div style="width:100%; height:50%;">
-<span id="stdout" style="height: 50%; width: 95%;">Standard Output Logs</span> <br>
+<span id="stdout" style="height: 50%; width: 95%;">Standard Output Log</span> <br>
 <input type="checkbox" name="scrollLog2" value="scrollLog2" onclick="if(this.checked){end('stdout')}">Go to the end of log
 </br>
 <pre>
-<textarea readonly="readonly" rows="15" cols="200" id="log-stdout" name="log-stdout" style="height: 50%; width: 95%;">
+<textarea readonly="readonly" rows="15" cols="200" id="log-stdout" name="log-stdout" style="height: 50%; width: 95%; resize:none">
 
 </textarea>
 </pre>
 </div>
-
 </div>
-
 </body>
  }  

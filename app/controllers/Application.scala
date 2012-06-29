@@ -33,7 +33,7 @@ object Application extends Controller{
   		val client = new CloudFoundryClient(email, password, cloudControllerUrl)	
   		try {
   		  val token = client.login() 
-  		  Redirect(routes.Application.showApps()).withSession("token"-> token)
+  		  Redirect(routes.Application.showApps()).withSession("token"-> token, "email"->email)
   		}
   		catch{
   		   case cfe: CloudFoundryException => Ok(html.login(loginForm,"Invalid Email and/or Password - Please Login Again"))			   	
@@ -47,7 +47,9 @@ object Application extends Controller{
   	  val client = new CloudFoundryClient(token,cloudControllerUrl)
   	  try{
   	  val appslist = client.getApplications().toList
-  	  Ok(html.apps(appslist))
+  	  val url = client.getCloudControllerUrl().toString()
+  	  val email = session.get("email").get
+  	  Ok(html.apps(appslist,url,email))
   	  }
   	  catch{
   	    case cfe: CloudFoundryException => Ok("No Apps Found")

@@ -2,32 +2,36 @@
 
 @import helper._
 
-@main("login") {	
-	<img src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
-	<center>		
+@main("Login") {	
+	       	
+	<img src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>	
+    
+    <font color="#087cbb">
+    <br>
+    @message
+	<br>
+    <h3 style="margin-left:120px"> Login </h3>
+    <b>
+    
     @form(action = routes.Application.checkLogin) {
-		<br>
-        <br>
-		@message
 		
+		<label style="margin-left:42px">Email Id *</label>
         @inputText(
             field = loginForm("email"),
-            args = '_label -> "Email Id *"
+            args = '_label -> "",'size -> 40
         )
-
+        <br>
+		<label style="margin-left:42px">Password *</label> 
         @inputPassword(
             field = loginForm("password"),
-            args = '_label -> "Password *" 
+            args = '_label -> "",'size -> 40
         )
-
-        <p class="buttons">
-            <input type="submit" id="submit">
+        <br>
+		<p>
+        <input type="submit" id="submit" value="Login" style="width:80px;height:60px;margin-left:80px"> 
+        Or <a href="http://my.cloudfoundry.com/signup">Sign Up</a> for CloudFoundry.com
         </p>
-        
-       
-        <p>
-        <a href="http://my.cloudfoundry.com/signup">New Users Sign Up to Cloud Foundry Now</a>
-        </p>
-	</center>
+        </b>
+        </font>
     }
 }
