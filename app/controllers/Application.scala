@@ -36,7 +36,8 @@ object Application extends Controller{
   		  Redirect(routes.Application.showApps()).withSession("token"-> token, "email"->email)
   		}
   		catch{
-  		   case cfe: CloudFoundryException => Ok(html.login(loginForm,"Invalid Email and/or Password - Please Login Again"))			   	
+  		   case cfe: CloudFoundryException => Ok(html.login(loginForm,"Invalid Email and/or Password - Please Login Again"))
+  		   case ncd: NoClassDefFoundError => Ok("Server needs to be restarted")
   		}	    		
   	 }
     ) 	   
@@ -59,8 +60,17 @@ object Application extends Controller{
   	  }
   	}
   		
- 	def showLogs(appName:String) = Action { 
-  	    Ok(html.logs(appName)) 	      
+ 	def showLogs(appName:String) = Action { implicit request =>
+  	    session.get("email").map{ email =>
+  	    try {
+  	     Ok(html.logs(appName,email)) 	
+  	    }
+  	    catch{
+  	      case cfe: CloudFoundryException => Ok("No Log Found")
+  	    }
+  	    }.getOrElse{
+  	      Ok("No Log Found")	
+  	    } 	      	          
   	}
 
  	def getLog(appName:String, logType:String) = Action { implicit request =>
@@ -82,7 +92,8 @@ object Application extends Controller{
  	  session.get("token").map { token =>
   	     val client = new CloudFoundryClient(token,cloudControllerUrl)
   	     val infoList = client.getCloudInfo() 
-  	     Ok(html.info(infoList))   
+  	     val email = session.get("email").get
+  	     Ok(html.info(infoList, email))   
   	  }.getOrElse{
   	      Ok("No Info Found")	
  	}

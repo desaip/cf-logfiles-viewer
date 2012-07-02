@@ -1,25 +1,27 @@
-@(infoList: org.cloudfoundry.client.lib.CloudInfo)
+@(infoList: org.cloudfoundry.client.lib.CloudInfo, email:String)
 
 @import helper._
 @import org.cloudfoundry.client.lib.CloudInfo
 
 @main("My Usage") {
-
-<center>
-<img src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
- <p class="buttons" align="center">
-<body style="background-color:#EBEBEB">
+<br>
+ <font color="#087cbb">
+<span style="margin-left:20px;">
+Welcome @email
+<img align="left" src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
+</span>
+ <p class="buttons" align="right">
+	<span style="background-color:#EBEBEB">
 
 <ul id="css3menu1" class="topmenu">
 	<li class="topfirst"><a id="apps" href="@routes.Application.showApps" style="height:17px;line-height:17px;"> My Apps </a></li>
 	<li class="topmenu"><a id="info" href="@routes.Application.getInfo" style="height:17px;line-height:17px;"><span> My Usage </span></a>
 	<li class="toplast"><a id="logout" href="@routes.Application.logout" style="height:17px;line-height:17px;"> Logout </a></li>
 </ul>
-</body>     
+</span>     
  </p>
-
-<font color="#087cbb"><h3>My Usage</h3>
-
+<center>
+<h3>My Usage</h3>
 @infoList.getDescription()
 <br>
 <br>

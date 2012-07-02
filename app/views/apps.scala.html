@@ -4,29 +4,31 @@
 @import org.cloudfoundry.client.lib.CloudApplication
 @import org.cloudfoundry.client.lib.CloudFoundryClient
 @main("My Apps") {
-
-<center>
-<img src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
- <p class="buttons" align="center">
-	<body style="background-color:#EBEBEB">
+<br>
+ <font color="#087cbb">
+<span style="margin-left:20px;">
+Welcome @email
+<img align="left" src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
+</span>
+ <p class="buttons" align="right">
+	
+<span style="background-color:#EBEBEB">
 
 <ul id="css3menu1" class="topmenu">
 	<li class="topfirst"><a id="apps" href="@routes.Application.showApps" style="height:17px;line-height:17px;"> My Apps </a></li>
 	<li class="topmenu"><a id="info" href="@routes.Application.getInfo" style="height:17px;line-height:17px;"><span> My Usage </span></a>
 	<li class="toplast"><a id="logout" href="@routes.Application.logout" style="height:17px;line-height:17px;"> Logout </a></li>
 </ul>
-</body>     
+</span>     
  </p>
- <font color="#087cbb"><h3>My Deployed Applications For</h3>
- <h4> 
- User: @email <br>
-Cloud Controller : @cloudUrl <br>
- </h4>
+ <center>
+<h3>My Deployed Applications For</h3>
+Cloud Controller : @cloudUrl 
+<div style="margin-right:20px;">
 <ul id="css3menu1" class="topmenu">
-<li class="toplast"><a id="refresh" href="@routes.Application.showApps" style="height:8px;line-height:8px;"> Refresh Apps </a></li>
+<li class="toplast"><a id="refresh" href="@routes.Application.showApps" style="height:6px;line-height:8px;"> Refresh Apps </a></li>
 </ul>
-<br>
-<br>
+</div>
 <table border="1" id="tableapps">
 <tr align="right">
 <th>Application Name</th>
@@ -40,8 +42,8 @@ Cloud Controller : @cloudUrl <br>
 <tr align="right">
 <td width="20%">@app.getName</td>
 <td width="30%">
-@if(app.getUris.toString.length != 2){
-<a target="_blank" href="http://www.@app.getUris.toString.substring(1,app.getUris.toString.length()-1)">
+@if(app.getUris.toString.length > 2){
+<a target="_blank" href="http://@app.getUris.toString.substring(1,app.getUris.toString.length()-1)">
 @app.getUris.toString.substring(1,app.getUris.toString.length()-1)</a> 
 }
 </td>
@@ -53,14 +55,9 @@ Cloud Controller : @cloudUrl <br>
 <li class="toplast"><a id="log-link" href="@routes.Application.showLogs(app.getName)" style="height:1px;line-height:1px;"> View Log</a></li>
 </ul>
 </td> 
-
 </tr>
 }
 </table>
 </center> 
 </font>
-  
- } 
-
-    
-    
+}

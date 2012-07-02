@@ -46,7 +46,7 @@ class FunctionalSpec extends Specification{
          
          //usage
          browser.click("#info")
-          browser.$("#tableinfo").size must equalTo(1)
+         browser.$("#tableinfo").size must equalTo(1)
          
          //logout
          browser.click("#logout")

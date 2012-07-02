@@ -1,19 +1,6 @@
-@(appName:String)
+@(appName:String, email:String)
 
 @main("My Logs"){
-<center>
- <p class="buttons" align="center">
-	
-<body style="background-color:#EBEBEB">
-
-<ul id="css3menu1" class="topmenu">
-	<li class="topfirst"><a id="apps" href="@routes.Application.showApps" style="height:17px;line-height:17px;"> My Apps </a></li>
-	<li class="topmenu"><a id="info" href="@routes.Application.getInfo" style="height:17px;line-height:17px;"><span> My Usage </span></a>
-	<li class="toplast"><a id="logout" href="@routes.Application.logout" style="height:17px;line-height:17px;"> Logout </a></li>
-</ul>
-</body>     
- </p>
-</center>
 
 <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"> </script>
 
@@ -54,7 +41,26 @@ function end(id)
 </script>
 
 <body>
-<font color="#087cbb"> <h3 align="center"> Logs For <span id="appname">@appName</span>: </h3> </font>
+<br>
+ <font color="#087cbb">
+<span style="margin-left:20px;">
+Welcome @email
+<img align="left" src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
+</span>
+ <p class="buttons" align="right">
+	
+<span style="background-color:#EBEBEB">
+
+<ul id="css3menu1" class="topmenu">
+	<li class="topfirst"><a id="apps" href="@routes.Application.showApps" style="height:17px;line-height:17px;"> My Apps </a></li>
+	<li class="topmenu"><a id="info" href="@routes.Application.getInfo" style="height:17px;line-height:17px;"><span> My Usage </span></a>
+	<li class="toplast"><a id="logout" href="@routes.Application.logout" style="height:17px;line-height:17px;"> Logout </a></li>
+</ul>
+</span>     
+ </p>
+ <center>
+
+<h3 align="center"> Logs For <span id="appname">@appName</span>: </h3> </font>
 <div style="width:100%; height:100%;">
 <div style="width:100%; height:40%;">
 <span id="stderr" style="height: 50%; width: 95%;">Standard Error Log</span> <br>
