@@ -1,8 +1,5 @@
 @(appsList: List[org.cloudfoundry.client.lib.CloudApplication], cloudUrl:String , email:String)
 
-@import helper._
-@import org.cloudfoundry.client.lib.CloudApplication
-@import org.cloudfoundry.client.lib.CloudFoundryClient
 @main("My Apps") {
 <br>
  <font color="#087cbb">
@@ -22,13 +19,14 @@ Welcome @email
 </span>     
  </p>
  <center>
-<h3>My Deployed Applications For</h3>
-Cloud Controller : @cloudUrl 
-<div style="margin-right:20px;">
+<h3>My Deployed Applications</h3>
+For Cloud Controller : @cloudUrl 
+<br>
 <ul id="css3menu1" class="topmenu">
-<li class="toplast"><a id="refresh" href="@routes.Application.showApps" style="height:6px;line-height:8px;"> Refresh Apps </a></li>
+<li class="toplast"><a id="refresh" href="@routes.Application.showApps" style="height:5px;line-height:5px;"> Refresh Apps </a></li>
 </ul>
-</div>
+<br>
+<br>
 <table border="1" id="tableapps">
 <tr align="right">
 <th>Application Name</th>

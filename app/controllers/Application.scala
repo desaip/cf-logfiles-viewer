@@ -38,6 +38,7 @@ object Application extends Controller{
   		catch{
   		   case cfe: CloudFoundryException => Ok(html.login(loginForm,"Invalid Email and/or Password - Please Login Again"))
   		   case ncd: NoClassDefFoundError => Ok("Server needs to be restarted")
+  		   case _: Exception => Ok(html.login(loginForm,"Please Login Again"))
   		}	    		
   	 }
     ) 	   
