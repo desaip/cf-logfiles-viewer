@@ -20,22 +20,31 @@ function getLog(logType)
 	$.get("/getLog?appName=@appName&logType="+logType,
 		function(fetchLog){
 			$("#log-"+logType).html(fetchLog);
-			},
+			$("#flash-"+logType).fadeOut(100).fadeIn(100);
+			end(logType);
+			
+	},
 		"html"
 		);	
-	
-	$("#flash-"+logType).fadeOut(100).fadeIn(100);
+
 }
-	
+
 function updateLogs() {
-	
+
 	setInterval(function(){getLogs()},10000);	
 }
 
 function end(id)
 {
-	var log = document.getElementById("log-"+id);
-	log.scrollTop = log.scrollHeight ;
+	if($("#scroll-"+id).is(':checked'))
+	{		   
+		    
+	}
+	else
+	{
+		  var log = document.getElementById("log-"+id);
+		  log.scrollTop = log.scrollHeight ;
+	}
 }
 </script>
 
@@ -47,7 +56,7 @@ Welcome @email
 <img align="left" src="@routes.Assets.at("images/logo_header_cloudfoundry.png")"/>
 </span>
  <p class="buttons" align="right">
-	
+
 <span style="background-color:#EBEBEB">
 
 <ul id="css3menu1" class="topmenu">
@@ -63,7 +72,7 @@ Welcome @email
 <div style="width:100%; height:80%;">
 <div id="flash-stderr" style="width:100%; height:40%;">
 <span id="stderr">Standard Error Log</span> &nbsp; &nbsp; 
-<input type="checkbox" name="scrollLog1" value="scrollLog1" onclick="if(this.checked){end('stderr')}">Go to the end of log
+<input type="checkbox" name="scrollLog1" id="scroll-stderr" value="scrollLog1">Scroll Lock
 </br>
 <pre>
 <textarea readonly="readonly" id="log-stderr" name="log-stderr" rows="15" style="width:90%; height:90%; resize:none; 
@@ -75,7 +84,7 @@ Welcome @email
 
 <div id="flash-stdout" style="width:100%; height:40%;"> <br><br>
 <span id="stdout">Standard Output Log</span> &nbsp; &nbsp; 
-<input type="checkbox" name="scrollLog2" value="scrollLog2" onclick="if(this.checked){end('stdout')}">Go to the end of log
+<input type="checkbox" name="scrollLog2" id="scroll-stdout" value="scrollLog2">Scroll Lock
 </br>
 <pre>
 <textarea readonly="readonly" id="log-stdout" name="log-stdout" rows="15" style="width:90%; height:90%; resize:none;
