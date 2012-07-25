@@ -1,7 +1,6 @@
-This is your new Play 2.0 application
-=====================================
+View your log files of deployed CF apps real time !!
 
-This file will be packaged with your application, when using `play dist`.
+App is under development.
 
-App deployed on mycf.cloudfoundry.com
+App deployed on logviewer.cloudfoundry.com
 
