@@ -1,4 +1,4 @@
-@(appName:String, email:String)
+@(appName:String, email:String, instances:Integer)
 
 <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"> </script>
 
@@ -10,23 +10,23 @@ function callLogs(){
 	updateLogs();
 }
 
-function getLogs(){	
-getLog('stderr');
-getLog('stdout');
+function getLogs(){
+	for (i=0; i<@instances; i++){
+		getLog('stderr',i);
+		getLog('stdout',i);
+	}
 }
 
-function getLog(logType)
+function getLog(logType,instance)
 {
-	$.get("/getLog?appName=@appName&logType="+logType,
+	$.get("/getLog?appName=@appName&logType="+logType+"&instance="+instance,
 		function(fetchLog){
-			$("#log-"+logType).html(fetchLog);
-			$("#flash-"+logType).fadeOut(100).fadeIn(100);
-			end(logType);
-			
+			$("#log-"+logType+"-"+instance).html(fetchLog);
+			$("#flash-"+logType).fadeOut(50).fadeIn(50);
+			end(logType,instance);
 	},
 		"html"
 		);	
-
 }
 
 function updateLogs() {
@@ -34,15 +34,15 @@ function updateLogs() {
 	setInterval(function(){getLogs()},10000);	
 }
 
-function end(id)
+function end(logType,instance)
 {
-	if($("#scroll-"+id).is(':checked'))
+	if($("#scroll-"+logType+"-"+instance).is(':checked'))
 	{		   
-		    
+
 	}
 	else
 	{
-		  var log = document.getElementById("log-"+id);
+		  var log = document.getElementById("log-"+logType+"-"+instance);
 		  log.scrollTop = log.scrollHeight ;
 	}
 }
@@ -70,28 +70,37 @@ Welcome @email
 
 <h3 align="center"> Logs For <span id="appname">@appName</span>: </h3> 
 <div style="width:100%; height:80%;">
-<div id="flash-stderr" style="width:100%; height:40%;">
-<span id="stderr">Standard Error Log</span> &nbsp; &nbsp; 
-<input type="checkbox" name="scrollLog1" id="scroll-stderr" value="scrollLog1">Scroll Lock
-</br>
+<div id="flash-stderr" style="width:100%; height:44%;">
+<span id="stderr">Standard Error Log</span> &nbsp; &nbsp;
+<table>
+<tr>
+@for(i<-0 until instances){
+<td> Instance @i <input type="checkbox" id="scroll-stderr-@i"> Scroll Lock 
 <pre>
-<textarea readonly="readonly" id="log-stderr" name="log-stderr" rows="15" style="width:90%; height:90%; resize:none; 
--webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+<textarea readonly="readonly" id="log-stderr-@i" rows="15" cols="200" style="height:90%; width:90%; resize:none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 
 </textarea>
 </pre>
+</td>
+}
+</tr>
+</table>
 </div>
-
-<div id="flash-stdout" style="width:100%; height:40%;"> <br><br>
+<div id="flash-stdout" style="width:100%; height:34%;"> <br><br>
 <span id="stdout">Standard Output Log</span> &nbsp; &nbsp; 
-<input type="checkbox" name="scrollLog2" id="scroll-stdout" value="scrollLog2">Scroll Lock
-</br>
+<table>
+<tr>
+@for(i<-0 until instances){
+<td> Instance @i <input type="checkbox" id="scroll-stdout-@i"> Scroll Lock 
 <pre>
-<textarea readonly="readonly" id="log-stdout" name="log-stdout" rows="15" style="width:90%; height:90%; resize:none;
--webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+<textarea readonly="readonly" id="log-stdout-@i" rows="15" cols="200" style="height:90%; width:90%; resize:none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 
 </textarea>
 </pre>
+</td>
+}
+</tr>
+</table>
 </div>
 </div>
 </font>

@@ -61,10 +61,10 @@ object Application extends Controller{
   	  }
   	}
   		
- 	def showLogs(appName:String) = Action { implicit request =>
+ 	def showLogs(appName:String, instances:java.lang.Integer) = Action { implicit request =>
   	    session.get("email").map{ email =>
   	    try {
-  	     Ok(html.logs(appName,email)) 	
+  	     Ok(html.logs(appName,email,instances)) 	
   	    }
   	    catch{
   	      case cfe: CloudFoundryException => Ok("No Log Found")
@@ -74,11 +74,11 @@ object Application extends Controller{
   	    } 	      	          
   	}
 
- 	def getLog(appName:String, logType:String) = Action { implicit request =>
+ 	def getLog(appName:String, logType:String,instance:java.lang.Integer) = Action { implicit request =>
   	    session.get("token").map{ token =>
   	    val client = new CloudFoundryClient(token,cloudControllerUrl) 
   	    try {
-  	    val file = client.getFile(appName,0,"/logs/"+logType+".log")
+  	    val file = client.getFile(appName,instance,"/logs/"+logType+".log")
   	    Ok(file)  
   	    }
   	    catch{
@@ -107,4 +107,6 @@ object Application extends Controller{
   	    }
   	     Ok(html.login(loginForm,msgTxt)).withNewSession
   	  }	
+ 	
+ 	
 } 

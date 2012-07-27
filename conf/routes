@@ -8,9 +8,9 @@ POST 	/apps						controllers.Application.checkLogin
 
 GET    /apps                       	controllers.Application.showApps
 
-GET     /logs						controllers.Application.showLogs(appName:String)
+GET     /logs						controllers.Application.showLogs(appName:String, instances:Integer)
 
-GET 	/getLog 					controllers.Application.getLog(appName:String, logType:String)
+GET 	/getLog 					controllers.Application.getLog(appName:String, logType:String, instance:Integer)
 
 GET    /info                       	controllers.Application.getInfo
 
