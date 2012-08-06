@@ -35,11 +35,12 @@ For Cloud Controller : @cloudUrl
 <th>Running Instances</th>
 <th>Memory</th>
 <th>View Log</th>
+<th>Mutliple Apps</th>
 </tr>
 @appsList.map{app =>
 <tr align="right">
-<td width="20%">@app.getName</td>
-<td width="30%">
+<td width="16%">@app.getName</td>
+<td width="26%">
 @if(app.getUris.toString.length > 2){
 <a target="_blank" href="http://@app.getUris.toString.substring(1,app.getUris.toString.length()-1)">
 @app.getUris.toString.substring(1,app.getUris.toString.length()-1)</a> 
@@ -52,10 +53,17 @@ For Cloud Controller : @cloudUrl
 <ul id="css3menu1" class="topmenu">
 <li class="toplast"><a id="log-link" href="@routes.Application.showLogs(app.getName,app.getRunningInstances)" style="height:1px;line-height:1px;"> View Log</a></li>
 </ul>
-</td> 
+</td>
+<td widht="6%"><input type="checkbox" name="multiple-apps[]" value="@app.getName"/> </td> 
 </tr>
 }
 </table>
-</center> 
+<br>
+<br>
+ 
+<ul id="css3menu1" class="topmenu">
+<li><a href="" style="height:4px;line-height:4px;float:right;"> View Logs of selected apps </a></li>
+</ul>
+</center>
 </font>
 }
