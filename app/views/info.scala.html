@@ -28,18 +28,27 @@ Welcome @email
 <table id="tableinfo" width="400">
 
 <tr align="center">
-<th width="50%"> Memory </th>
-<td width="50%"> @infoList.getUsage().getTotalMemory() / @infoList.getLimits().getMaxTotalMemory MB </td>
+<td> </td>
+<th> Used </th>
+<th> Available </th>
 </tr>
 
 <tr align="center">
-<th width="50%"> Services </th>
-<td width="50%"> @infoList.getUsage().getServices() / @infoList.getLimits().getMaxServices </td>
+<th width="40%"> Memory </th>
+<td width="30%"> @infoList.getUsage().getTotalMemory() / @infoList.getLimits().getMaxTotalMemory MB </td>
+<td width="30%"> @(infoList.getLimits().getMaxTotalMemory-infoList.getUsage().getTotalMemory()) / @infoList.getLimits().getMaxTotalMemory MB </td>
 </tr>
 
 <tr align="center">
-<th width="50%"> Applications </th>
-<td width="50%"> @infoList.getUsage().getApps() / @infoList.getLimits().getMaxApps </td>
+<th width="40%"> Services </th>
+<td width="30%"> @infoList.getUsage().getServices() / @infoList.getLimits().getMaxServices </td>
+<td width="30%"> @(infoList.getLimits().getMaxServices-infoList.getUsage().getServices()) / @infoList.getLimits().getMaxServices </td>
+</tr>
+
+<tr align="center">
+<th width="40%"> Applications </th>
+<td width="30%"> @infoList.getUsage().getApps() / @infoList.getLimits().getMaxApps </td>
+<td width="30%"> @(infoList.getLimits().getMaxApps-infoList.getUsage().getApps()) / @infoList.getLimits().getMaxApps </td>
 </tr>
 
 </table>

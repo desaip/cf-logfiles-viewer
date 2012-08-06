@@ -75,7 +75,7 @@ Welcome @email
 <table>
 <tr>
 @for(i<-0 until instances){
-<td> Instance @i <input type="checkbox" id="scroll-stderr-@i"> Scroll Lock 
+<td> <span style="text-align:center"><font color="#087cbb"> Instance @(i+1) &nbsp;&nbsp; <input type="checkbox" id="scroll-stderr-@i"> Scroll Lock </font></span>
 <pre>
 <textarea readonly="readonly" id="log-stderr-@i" rows="15" cols="200" style="height:90%; width:90%; resize:none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 
@@ -86,12 +86,13 @@ Welcome @email
 </tr>
 </table>
 </div>
-<div id="flash-stdout" style="width:100%; height:34%;"> <br><br>
+<br><br>
+<div id="flash-stdout" style="width:100%; height:34%;">
 <span id="stdout">Standard Output Log</span> &nbsp; &nbsp; 
 <table>
 <tr>
 @for(i<-0 until instances){
-<td> Instance @i <input type="checkbox" id="scroll-stdout-@i"> Scroll Lock 
+<td> <span style="text-align:center"><font color="#087cbb"> Instance @(i+1) &nbsp;&nbsp; <input type="checkbox" id="scroll-stdout-@i"> Scroll Lock </font></span>
 <pre>
 <textarea readonly="readonly" id="log-stdout-@i" rows="15" cols="200" style="height:90%; width:90%; resize:none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 
