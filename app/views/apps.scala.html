@@ -54,7 +54,13 @@ For Cloud Controller : @cloudUrl
 <li class="toplast"><a id="log-link" href="@routes.Application.showLogs(app.getName,app.getRunningInstances)" style="height:1px;line-height:1px;"> View Log</a></li>
 </ul>
 </td>
-<td widht="6%"><input type="checkbox" name="multiple-apps[]" value="@app.getName"/> </td> 
+@{if(app.getRunningInstances != 0){
+<td width="8%"><input type="checkbox" name="multiple_apps" value="@app.getName"/> </td> 
+}
+else { 
+<td> </td>
+}
+}
 </tr>
 }
 </table>
