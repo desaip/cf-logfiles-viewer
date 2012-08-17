@@ -41,7 +41,7 @@ object Application extends Controller{
   		   case _: Exception => Ok(html.login(loginForm,"Please Login Again"))
   		}	    		
   	 }
-    ) 	   
+  	  )
   }
   	
   	def showApps = Action { implicit request =>
@@ -88,6 +88,21 @@ object Application extends Controller{
   	      Ok("No Log Found")	
   	    } 	      	  
  	}
+ 	
+ 	def showMutlipleAppLogs(multiple_apps:String) = Action { implicit request =>
+  	    session.get("email").map{ email =>
+  	    try {  
+  	    val apps = multiple_apps.split(",").toList
+  	     Ok(html.multiLogs(apps,email)) 	
+  	    }
+  	    catch{
+  	      case cfe: CloudFoundryException => Ok("No Log Found")
+  	    }
+  	    }.getOrElse{
+  	      Ok("No Log Found")	
+  	    }
+ 	}
+
  	
  	def getInfo = Action { implicit request =>
  	  session.get("token").map { token =>

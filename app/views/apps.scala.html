@@ -1,6 +1,23 @@
 @(appsList: List[org.cloudfoundry.client.lib.CloudApplication], cloudUrl:String , email:String)
 
 @main("My Apps") {
+<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"> </script>
+
+<script type="text/javascript">
+
+$(function() {
+$("#selectedAppsLogs").click(function() {
+	var selected_apps = [];
+	$("input:checkbox[name=multiple_apps]:checked").each(function()
+			{
+				selected_apps.push(this.value);	    
+			});
+	location.href="/multipleApps?selected_apps="+selected_apps.join(",");
+	});
+});
+
+</script>
+
 <br>
  <font color="#087cbb">
 <span style="margin-left:20px;">
@@ -31,45 +48,40 @@ For Cloud Controller : @cloudUrl
 <tr align="right">
 <th>Application Name</th>
 <th>Application URL</th>
-<th>Instances</th>
 <th>Running Instances</th>
-<th>Memory</th>
+<th>Memory (MB)</th>
 <th>View Log</th>
-<th>Mutliple Apps</th>
+<th>Select Apps</th>
 </tr>
 @appsList.map{app =>
 <tr align="right">
-<td width="16%">@app.getName</td>
-<td width="26%">
+<td width="20%">@app.getName</td>
+<td width="30%">
 @if(app.getUris.toString.length > 2){
 <a target="_blank" href="http://@app.getUris.toString.substring(1,app.getUris.toString.length()-1)">
 @app.getUris.toString.substring(1,app.getUris.toString.length()-1)</a> 
 }
 </td>
-<td width="12%">@app.getInstances</td>
-<td width="12%">@app.getRunningInstances</td>
+<td width="12%">@app.getRunningInstances / @app.getInstances</td>
 <td width="12%">@app.getMemory</td>
-<td width="14%">
+<td width="15%">
 <ul id="css3menu1" class="topmenu">
 <li class="toplast"><a id="log-link" href="@routes.Application.showLogs(app.getName,app.getRunningInstances)" style="height:1px;line-height:1px;"> View Log</a></li>
 </ul>
 </td>
-@{if(app.getRunningInstances != 0){
-<td width="8%"><input type="checkbox" name="multiple_apps" value="@app.getName"/> </td> 
-}
-else { 
+@{if(app.getRunningInstances != 0)
+<td width="12%"><input type="checkbox" name="multiple_apps" id="multiple_apps" value={app.getName}/> </td> 
+else 
 <td> </td>
-}
 }
 </tr>
 }
 </table>
 <br>
-<br>
- 
 <ul id="css3menu1" class="topmenu">
-<li><a href="" style="height:4px;line-height:4px;float:right;"> View Logs of selected apps </a></li>
+<li><a id="selectedAppsLogs" style="height:4px;line-height:4px;float:right;"> View Logs of selected apps </a></li>
 </ul>
 </center>
+<br>
 </font>
 }
