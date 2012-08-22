@@ -14,6 +14,8 @@ function getAllLogs(){
 	@apps.map{app =>
 	getLogs('@app');
 	}
+	$("#flash-stderr").fadeOut(50).fadeIn(50);
+	$("#flash-stdout").fadeOut(50).fadeIn(50);
 }
 	
 function getLogs(appName){
@@ -26,7 +28,7 @@ function getLog(appName,logType)
 	$.get("/getLog?appName="+appName+"&logType="+logType+"&instance=0",
 		function(fetchLog){
 			$("#log-"+logType+"-"+appName).html(fetchLog);
-			$("#flash-"+logType).fadeOut(20).fadeIn(20);
+			
 			end(logType,appName);
 	},
 		"html"
@@ -81,7 +83,7 @@ Welcome @email
 @apps.map{app=>
 <td> <span style="text-align:center"><font color="#087cbb"> <span id="stderr">Std Err Log For @app</span>  &nbsp;&nbsp; <input type="checkbox" id="scroll-stderr-@app"> Scroll Lock </font></span>
 <pre>
-<textarea readonly="readonly" id="log-stderr-@app" rows="15" cols="200" style="height:90%; width:90%; resize:none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+<textarea readonly="readonly" id="log-stderr-@app" rows="15" cols="200" style="height:90%; width:90%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 
 </textarea>
 </pre>
@@ -98,7 +100,7 @@ Welcome @email
 @apps.map{app=>
 <td> <span style="text-align:center"><font color="#087cbb"><span id="stdout">Std Out Log For @app</span>   &nbsp;&nbsp; <input type="checkbox" id="scroll-stdout-@app"> Scroll Lock </font></span>
 <pre>
-<textarea readonly="readonly" id="log-stdout-@app" rows="15" cols="200" style="height:90%; width:90%; resize:none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+<textarea readonly="readonly" id="log-stdout-@app" rows="15" cols="200" style="height:90%; width:90%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 
 </textarea>
 </pre>

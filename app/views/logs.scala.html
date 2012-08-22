@@ -15,6 +15,7 @@ function getLogs(){
 		getLog('stderr',i);
 		getLog('stdout',i);
 	}
+	$("#fade-div").fadeOut(50).fadeIn(50);
 }
 
 function getLog(logType,instance)
@@ -22,7 +23,7 @@ function getLog(logType,instance)
 	$.get("/getLog?appName=@appName&logType="+logType+"&instance="+instance,
 		function(fetchLog){
 			$("#log-"+logType+"-"+instance).html(fetchLog);
-			$("#flash-"+logType).fadeOut(50).fadeIn(50);
+			
 			end(logType,instance);
 	},
 		"html"
@@ -30,8 +31,8 @@ function getLog(logType,instance)
 }
 
 function updateLogs() {
-
 	setInterval(function(){getLogs()},10000);	
+
 }
 
 function end(logType,instance)
@@ -67,17 +68,16 @@ Welcome @email
 </span>     
  </p>
  <center>
-
-<h3 align="center"> Logs For <span id="appname">@appName</span>: </h3> 
-<div style="width:100%; height:80%;">
+<h3> Logs For <span id="appname">@appName</span>: </h3> 
+<div id="fade-div" style="width:100%;height:80%;">
 <div id="flash-stderr" style="width:100%; height:44%;">
-<span id="stderr">Standard Error Log</span> &nbsp; &nbsp;
+<span id="stderr">Standard Error Log</span>
 <table>
 <tr>
 @for(i<-0 until instances){
 <td> <span style="text-align:center"><font color="#087cbb"> Instance @(i+1) &nbsp;&nbsp; <input type="checkbox" id="scroll-stderr-@i"> Scroll Lock </font></span>
 <pre>
-<textarea readonly="readonly" id="log-stderr-@i" rows="15" cols="200" style="height:90%; width:90%; resize:none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+<textarea readonly="readonly" id="log-stderr-@i" rows="14" cols="200" style="height:90%;width:90%;-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 
 </textarea>
 </pre>
@@ -85,8 +85,6 @@ Welcome @email
 }
 </tr>
 </table>
-</div>
-<br><br>
 <div id="flash-stdout" style="width:100%; height:34%;">
 <span id="stdout">Standard Output Log</span> &nbsp; &nbsp; 
 <table>
@@ -94,7 +92,7 @@ Welcome @email
 @for(i<-0 until instances){
 <td> <span style="text-align:center"><font color="#087cbb"> Instance @(i+1) &nbsp;&nbsp; <input type="checkbox" id="scroll-stdout-@i"> Scroll Lock </font></span>
 <pre>
-<textarea readonly="readonly" id="log-stdout-@i" rows="15" cols="200" style="height:90%; width:90%; resize:none; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
+<textarea readonly="readonly" id="log-stdout-@i" rows="14" cols="200" style="height:90%;width:90%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">
 
 </textarea>
 </pre>

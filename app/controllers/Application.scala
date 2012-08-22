@@ -115,6 +115,27 @@ object Application extends Controller{
  	}
  }
  	
+ 	def startStopApp(app_name:String, request:String) = Action { implicit request =>
+  	     session.get("token").map { token =>
+  	     try{
+  	     val client = new CloudFoundryClient(token,cloudControllerUrl)
+  	     if(request=="start") {
+  	       client.startApplication(app_name)
+  	       }
+  	     else {
+  	       client.stopApplication(app_name)
+  	     }
+  	     Redirect(routes.Application.showApps())
+  	     }
+  	     catch{
+  	      case cfe: CloudFoundryException => Redirect(routes.Application.showApps())
+  	     }
+  	 }.getOrElse{
+  	      Redirect(routes.Application.showApps())
+ }
+ 	}
+
+ 	
  	def logout = Action { implicit request =>
   	     session.get("token").map { token =>
   	     val client = new CloudFoundryClient(token,cloudControllerUrl)

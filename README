@@ -1,7 +1,4 @@
-View your log files of deployed CF apps real time !!
+This is your new Play 2.0 application
+=====================================
 
-App is under development.
-
-App deployed on logviewer.cloudfoundry.com
-
-App behaves differently on FireFox from Chrome. So Run in Both.
+This file will be packaged with your application, when using `play dist`.
